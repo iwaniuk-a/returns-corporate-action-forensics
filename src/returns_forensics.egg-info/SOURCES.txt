@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+src/returns_forensics/__init__.py
+src/returns_forensics/corporate_actions.py
+src/returns_forensics/diagnostics.py
+src/returns_forensics/io.py
+src/returns_forensics/returns.py
+src/returns_forensics.egg-info/PKG-INFO
+src/returns_forensics.egg-info/SOURCES.txt
+src/returns_forensics.egg-info/dependency_links.txt
+src/returns_forensics.egg-info/top_level.txt
+tests/test_dividends.py
+tests/test_returns.py
+tests/test_splits.py

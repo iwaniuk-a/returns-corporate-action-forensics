@@ -1,0 +1,9 @@
+synthetic_split:
+  random_seed: 1108
+  number_of_days: 60
+  start_date: "2024-01-02"
+  initial_wealth: 100.0
+  daily_log_return_std: 0.01
+  split_day_index: 30
+  split_ratio: 2.0
+  initial_shares: 1.0
