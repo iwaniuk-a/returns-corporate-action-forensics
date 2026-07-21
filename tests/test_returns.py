@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import pytest
-from returns_forensics.returns import simple_returns, log_returns, split_aware_returns
+from returns_forensics.returns import simple_returns, log_returns, split_aware_returns, total_returns
 
 
 def test_ordinary_price_path():
@@ -91,3 +91,75 @@ def test_mismatched_indices_raise_value_error():
 def test_log_returns_reject_invalid_prices():
     with pytest.raises(ValueError):
         log_returns(pd.Series([100.0, 0.0]))
+
+###
+def test_total_returns_with_cash_dividend():
+    prices = pd.Series([100.0, 99.0, 100.0])
+    dividends = pd.Series([0.0, 1.0, 0.0])
+
+    expected = pd.Series([np.nan, 0.0, 100.0 / 99.0 - 1.0,
+    ])
+
+    actual = total_returns(prices, dividends)
+
+    np.testing.assert_allclose(
+        actual,
+        expected,
+        err_msg="Total returns should include cash dividends",
+    )
+
+def test_dividend_distinguishes_price_and_total_return():
+    prices = pd.Series([100.0, 99.0])
+    dividends = pd.Series([0.0, 1.0])
+
+    price_return = simple_returns(prices)
+    total_return = total_returns(prices, dividends)
+
+    np.testing.assert_allclose(
+        price_return.iloc[1],
+        -0.01,
+    )
+
+    np.testing.assert_allclose(
+        total_return.iloc[1],
+        0.0,
+    )
+
+def test_zero_dividends_recover_price_returns():
+    prices = pd.Series([100.0, 103.0, 101.0])
+    dividends = pd.Series([0.0, 0.0, 0.0])
+
+    np.testing.assert_allclose(
+        total_returns(prices, dividends),
+        simple_returns(prices),
+    )
+
+def test_mismatched_indices_dividends():
+    prices = pd.Series(
+        [100.0, 50.0],
+        index=["day_1", "day_2"],
+    )
+    dividends = pd.Series(
+        [1.0, 2.0],
+        index=["day_1", "wrong_day"],
+    )
+
+    with pytest.raises(ValueError):
+        total_returns(prices, dividends)
+
+def test_invalid_input_dividends():
+    prices = pd.Series([100.0, 99.0, 100.0])
+    invalid_cases = [
+        pd.Series([1.0, -5.0, 0.0]),    # Negative dividentd
+        pd.Series([1.0, np.nan, 0.0]),  # Missing dividend
+        pd.Series([1.0, "1.0", 0.0])  # Non-numeric type
+    ]
+    
+    for case in invalid_cases:
+        with pytest.raises(ValueError):
+            total_returns(prices, case)
+
+def test_non_series_dividends():
+    prices = pd.Series([100.0, 99.0, 100.0])
+    with pytest.raises(TypeError):
+        total_returns(prices, [100.0, 101.0])
