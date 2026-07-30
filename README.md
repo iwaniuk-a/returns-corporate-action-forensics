@@ -103,7 +103,7 @@ $$
 For a pure split,
 
 $$
-q_tP_t\approxq_{t-1}P_{t-1}.
+q_tP_t\approx q_{t-1}P_{t-1}.
 $$
 
 The quoted price per share changes, but investor wealth does not mechanically change.
