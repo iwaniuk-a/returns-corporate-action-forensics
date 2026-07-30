@@ -1,0 +1,12 @@
+,value
+split_ratio,2.0
+naive_split_return,-0.5
+split_aware_return,0.0
+raw_split_zscore,-46.168122006170364
+split_aware_zscore,0.1852100383157875
+peak_volatility_distortion,13.63370251728387
+peak_volatility_distortion_index,41.0
+moving_average_disagreement_dates,3.0
+raw_model_rmse,0.06564944445925674
+split_aware_model_rmse,0.010200917564055976
+raw_event_sse_share,0.9592853369397651

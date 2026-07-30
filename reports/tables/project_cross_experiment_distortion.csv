@@ -1,0 +1,9 @@
+experiment,research_object,incorrect_treatment,action_aware_result,distortion
+Synthetic 2-for-1 split,Split-date return,-50.00%,0.00%,False 50 percentage-point loss
+Synthetic 2-for-1 split,20-day rolling volatility,13.63× action-aware volatility,Economic-return volatility,One event contaminates a full rolling window
+Synthetic 2-for-1 split,Ex-ante return z-score,-46.17,0.19,Bookkeeping event appears as an extreme anomaly
+Synthetic model contamination,Ridge-regression RMSE,0.0656,0.0102,6.44× higher RMSE
+Coca-Cola dividends,Dividend-date return sign,4 apparent price-only losses,Non-negative total returns,33.3% of dividend dates
+Coca-Cola dividends,Three-year wealth,1.111,1.215,9.42% higher total-return wealth
+Apple 4-for-1 split,Split-date return,-74.15%,3.39%,Positive day appears as a 74% collapse
+Dividend vendor verification,Event dates and amounts,Single-vendor event records before verification,12 of 12 events matched,Maximum amount difference: 0.000
