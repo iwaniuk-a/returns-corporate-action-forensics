@@ -1,0 +1,9 @@
+,value
+split_date,2020-08-31 00:00:00
+split_ratio,4.0
+previous_as_traded_close,499.2300109863282
+split_date_as_traded_close,129.0399932861328
+naive_price_return,-0.7415219629300958
+split_aware_return,0.03391214827961675
+wealth_before_split,499.2300109863282
+wealth_after_split,516.1599731445312

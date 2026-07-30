@@ -14,17 +14,15 @@ def get_project_root(current_path: Path) -> Path:
 
 
 def main():
-    # 1. Project Root and Directory Setup
-    # Path(__file__).resolve() gets the absolute path of this script
-    script_path = Path(__file__).resolve() if "__file__" in globals() else Path.cwd()
+    script_path = Path(__file__).resolve().parent
     project_root = get_project_root(script_path)
     
     output_dir = project_root / "data" / "raw" / "yfinance"
     output_dir.mkdir(parents=True, exist_ok=True)
  
-    ticker_symbol = "KO"
-    start_date = "2023-01-01"
-    end_date = "2026-01-01"
+    ticker_symbol = "AAPL"
+    start_date = "2019-01-01"
+    end_date = "2022-01-01"
     
     ticker = yf.Ticker(ticker_symbol)
     
@@ -52,6 +50,31 @@ def main():
     
     df.to_csv(output_path, index=False)
 
+    split_rows = df.index[df["Stock Splits"].gt(0)]
+
+    if len(split_rows) != 1:
+        raise ValueError(
+            f"Expected one split event, found {len(split_rows)}"
+        )
+
+    split_row = split_rows[0]
+
+    split_window = df.loc[
+        max(0, split_row - 5): split_row + 5,
+        [
+            "date",
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Adj Close",
+            "Volume",
+            "Dividends",
+            "Stock Splits",
+        ],
+    ]
+
+    print(split_window.to_string(index=False))
     print(f"Saved raw data to: {output_path.resolve()}")
     print(f"Column names: {df.columns.to_list()}")
     print(f"Number of rows: {len(df)}")
@@ -61,6 +84,7 @@ def main():
     df['year'] = pd.to_datetime(df['date']).dt.year
     yearly_divs = df.groupby('year')['Dividends'].sum()
     print(f"Total dividends grouped by calendar year: {yearly_divs.to_string()}")
+
     
 if __name__ == "__main__":
     main()
