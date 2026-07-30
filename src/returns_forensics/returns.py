@@ -59,7 +59,6 @@ def total_returns(prices: pd.Series, cash_dividends: pd.Series,) -> pd.Series:
     if cash_dividends.isna().any():
         raise ValueError("Cash dividents must not contain NaN values")
 
-            
     if (cash_dividends < 0).any():
         raise ValueError("Cash dividents must be non negative")
 
