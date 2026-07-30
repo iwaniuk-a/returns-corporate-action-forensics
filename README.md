@@ -11,14 +11,14 @@ How severely can incorrect corporate-action treatment distort measured returns, 
 
 The project combines controlled synthetic experiments with real Apple and Coca-Cola corporate actions.
 
-- A synthetic 2-for-1 split produced a naive return of **−50%**, while shareholder wealth and the split-aware return were unchanged.
+- A synthetic 2-for-1 split produced a naive return of **-50%**, while shareholder wealth and the split-aware return were unchanged.
 - The same false split return inflated 20-day rolling volatility by as much as **13.63×**.
-- The raw split observation produced an ex-ante z-score of approximately **−46.17**, compared with approximately **0.19** after correct treatment.
+- The raw split observation produced an ex-ante z-score of approximately **-46.17**, compared with approximately **0.19** after correct treatment.
 - A ridge-regression pipeline trained on contaminated returns had approximately **6.44× higher RMSE** than the action-aware pipeline.
 - For Coca-Cola over 2023–2025, dividend-inclusive wealth ended **9.42% above** price-only wealth.
 - On **4 of 12** Coca-Cola dividend dates, price return was negative while total return was non-negative.
 - Alpha Vantage and yfinance agreed on all **12 ex-dividend dates and dividend amounts** in the selected sample.
-- Around Apple’s 2020 4-for-1 split, comparing prices expressed in different share units produced a naive return of **−74.15%**. Share-count accounting and the split-adjusted close both produced an economic return of **+3.39%**.
+- Around Apple’s 2020 4-for-1 split, comparing prices expressed in different share units produced a naive return of **-74.15%**. Share-count accounting and the split-adjusted close both produced an economic return of **+3.39%**.
 
 The central conclusion is that corporate-action adjustment is not cosmetic preprocessing. It determines the economic meaning of every downstream statistic and model input.
 
@@ -29,9 +29,7 @@ The central conclusion is that corporate-action adjustment is not cosmetic prepr
 For a strictly positive price series $P_t$, the one-period simple price return is
 
 $$
-r_t^{\mathrm{price}}
-=
-\frac{P_t}{P_{t-1}}-1.
+r_t^{\mathrm{price}}=\frac{P_t}{P_{t-1}}-1.
 $$
 
 If a price rises from 100 to 105, then
@@ -45,28 +43,18 @@ $$
 The log return is
 
 $$
-g_t
-=
-\log P_t-\log P_{t-1}
-=
-\log\left(1+r_t^{\mathrm{price}}\right).
+g_t=\log P_t-\log P_{t-1}=\log\left(1+r_t^{\mathrm{price}}\right).
 $$
 
 Therefore,
 
 $$
-r_t^{\mathrm{price}}
-=
-\exp(g_t)-1.
+r_t^{\mathrm{price}}=\exp(g_t)-1.
 $$
 
 Log returns add through time:
 
-$$
-\sum_{t=1}^{T}g_t
-=
-\log\left(\frac{P_T}{P_0}\right).
-$$
+$$\sum_{t=1}^{T}g_t=\log\left(\frac{P_T}{P_0}\right).$$
 
 For small returns,
 
@@ -80,20 +68,12 @@ but this is only an approximation.
 
 If the shareholder receives cash dividend $D_t$, the one-period total return is
 
-$$
-r_t^{\mathrm{total}}
-=
-\frac{P_t+D_t}{P_{t-1}}-1.
-$$
+$$r_t^{\mathrm{total}}=\frac{P_t+D_t}{P_{t-1}}-1.$$
 
 The dividend contribution to the return is therefore
 
 $$
-r_t^{\mathrm{total}}
--
-r_t^{\mathrm{price}}
-=
-\frac{D_t}{P_{t-1}}.
+r_t^{\mathrm{total}}-r_t^{\mathrm{price}}=\frac{D_t}{P_{t-1}}.
 $$
 
 A stock can have a negative price return while still producing a non-negative total return.
@@ -103,9 +83,7 @@ A stock can have a negative price return while still producing a non-negative to
 For a split with event ratio $s_t$, the split-aware return is
 
 $$
-r_t^{\mathrm{split}}
-=
-\frac{s_tP_t}{P_{t-1}}-1.
+r_t^{\mathrm{split}}=\frac{s_tP_t}{P_{t-1}}-1.
 $$
 
 Here $s_t=1$ on ordinary dates. For a 2-for-1 split, $s_t=2$ on the event date.
@@ -125,9 +103,7 @@ $$
 For a pure split,
 
 $$
-q_tP_t
-\approx
-q_{t-1}P_{t-1}.
+q_tP_t\approxq_{t-1}P_{t-1}.
 $$
 
 The quoted price per share changes, but investor wealth does not mechanically change.
